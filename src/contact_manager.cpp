@@ -8,7 +8,7 @@
 //    unordered_map<string,size_t>  phone -> slot      : O(1) phone lookup + duplicate check
 //    map<string,vector<size_t>>    lower(name) -> slots: O(log n) ordered/prefix name search
 //    Trie (prefix tree)            name -> id         : O(p) autocomplete
-//    std::stack<Action>            undo history (bounded)
+//    std::deque<Action>            undo history, newest at the back, bounded to 20
 //
 //  No third-party dependencies. Build:
 //      c++ -std=c++17 -O2 -Wall -Wextra -o cms src/contact_manager.cpp
@@ -23,14 +23,11 @@
 #include <deque>
 #include <ctime>
 #include <fstream>
-#include <iomanip>
 #include <iostream>
-#include <limits>
 #include <map>
 #include <memory>
 #include <optional>
 #include <sstream>
-#include <stack>
 #include <string>
 #include <unordered_map>
 #include <utility>

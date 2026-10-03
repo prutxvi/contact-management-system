@@ -364,6 +364,8 @@ contact-management-system/
 │   ├── steps/intent.txt          what each step is for, and which edge case it proves
 │   └── session.log               a saved full run, 535 lines
 ├── docs/
+│   ├── complete-guide.md         EVERYTHING in one document: basics, project, tech stack,
+│   │                             how it works, workflows, verification, glossary (1,300 lines)
 │   ├── explained.md              start here: basics → design → workflows → how to edit safely
 │   ├── report.md                 the term-project report (989 lines)
 │   ├── viva_qa.md                viva questions with prepared answers
@@ -380,6 +382,7 @@ Built as a college term project, so the paperwork is in the repo too.
 
 | Document | What it is |
 |---|---|
+| [`docs/complete-guide.md`](docs/complete-guide.md) | **Everything in one document**: the basics of the topic, what the project is, the full tech stack with versions, how it works, every command, verification, measured results, and a glossary |
 | [`docs/explained.md`](docs/explained.md) | From zero: what DSA is, what the brief asks, how the design works, every workflow, and recipe tables for editing safely |
 | [`docs/report.md`](docs/report.md) | The full report: abstract, design, data-structure justification, 14 algorithms in pseudocode, testing, measured results, references |
 | [`docs/viva_qa.md`](docs/viva_qa.md) | 30+ viva questions with answers, including the traps |
