@@ -1,0 +1,535 @@
+=============================================================
+ CONTACT MANAGEMENT SYSTEM  (Group 11, C++17)
+=============================================================
+  No existing file at scratch/demo.csv; starting with an empty list.
+  Structures in memory: vector<Contact> 0 rows, id map 0 keys, phone map 0 keys, name map 0 buckets, trie 1 nodes.
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice:   Sample data: 10 contact(s) added.
+  Note the deliberate pair of contacts both named 'Ananya Iyer'.
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: --- 2. Display all contacts ---
+  Sort by: 1 Name  2 Phone  3 ID  4 Group  5 Date added
+  Choice [1-5, default 1]:   Order: a ascending / d descending [default a]:   10 record(s), sorted by name ascending; 22 comparisons performed.
+ID   Name                   Phone        Group      Email                    Address                    Added     
+--------------------------------------------------------------------------------------------------------------------
+1    Aarav Sharma           98765 43210  Family     aarav.sharma@example.com 12, MG Road, Bengaluru     2026-10-03
+2    Ananya Iyer            98123 45678  Work       ananya@example.com       Flat 3B, "Sunrise" Apar... 2026-10-03
+3    Ananya Iyer            99001 12233  Work       ananya.iyer@work.in      Same office, Hyderabad     2026-10-03
+8    Arjun Reddy            70123 45678  Friend                              Hyderabad                  2026-10-03
+9    Kavya Menon            99556 67788  Family     kavya@example.com                                   2026-10-03
+7    Meera Krishnan         88997 76655  Family     meera.k@example.com      Chennai                    2026-10-03
+5    Priya Nair             94455 66778  Friend     priya.nair@example.com   Kochi                      2026-10-03
+4    Rohan Verma            90000 11111  Friend                              Sector 21, Noida           2026-10-03
+10   Sanjay Gupta           96325 87410  General    sanjay.g@example.com     Kolkata                    2026-10-03
+6    Vikram Singh           75540 00123  Work                                Bhopal                     2026-10-03
+  10 record(s).
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: --- 3. Search by name ---
+  Search text:   Mode: 1 exact (O(log n))  2 prefix (O(log n + k))  3 contains (O(n))  4 fuzzy typo-tolerant
+  Choice [1-4, default 3]:   2 match(es) for prefix search 'Ananya':
+ID   Name                   Phone        Group      Email                    Added     
+------------------------------------------------------------------------------------------
+2    Ananya Iyer            98123 45678  Work       ananya@example.com       2026-10-03
+3    Ananya Iyer            99001 12233  Work       ananya.iyer@work.in      2026-10-03
+  2 record(s).
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: --- 4. Search by phone number ---
+  Phone (full or partial):   1 match(es). Exact hash hit, O(1).
+ID   Name                   Phone        Group      Email                    Added     
+------------------------------------------------------------------------------------------
+3    Ananya Iyer            99001 12233  Work       ananya.iyer@work.in      2026-10-03
+  1 record(s).
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: --- 4. Search by phone number ---
+  Phone (full or partial):   1 match(es). Partial match required a linear scan, O(n).
+ID   Name                   Phone        Group      Email                    Added     
+------------------------------------------------------------------------------------------
+5    Priya Nair             94455 66778  Friend     priya.nair@example.com   2026-10-03
+  1 record(s).
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: --- 3. Search by name ---
+  Search text:   Mode: 1 exact (O(log n))  2 prefix (O(log n + k))  3 contains (O(n))  4 fuzzy typo-tolerant
+  Choice [1-4, default 3]:   2 match(es) for fuzzy search 'Ananaya':
+ID   Name                   Phone        Group      Email                    Added     
+------------------------------------------------------------------------------------------
+2    Ananya Iyer            98123 45678  Work       ananya@example.com       2026-10-03
+3    Ananya Iyer            99001 12233  Work       ananya.iyer@work.in      2026-10-03
+  2 record(s).
+  Fuzzy mode scores every record with Damerau-Levenshtein, so it is O(n * L^2).
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: --- 3. Search by name ---
+  Search text:   Mode: 1 exact (O(log n))  2 prefix (O(log n + k))  3 contains (O(n))  4 fuzzy typo-tolerant
+  Choice [1-4, default 3]:   1 match(es) for contains search 'kavya':
+ID   Name                   Phone        Group      Email                    Added     
+------------------------------------------------------------------------------------------
+9    Kavya Menon            99556 67788  Family     kavya@example.com        2026-10-03
+  1 record(s).
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: --- 1. Add contact (leave optional fields blank to skip) ---
+  Name        :   Phone       :   Email       :   Group       :   Address     :   REJECTED: Duplicate: phone 98765 43210 already belongs to #1 (Aarav Sharma).
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: --- 1. Add contact (leave optional fields blank to skip) ---
+  Name        :   Phone       :   Email       :   Group       :   Address     :   REJECTED: Invalid phone '12345'. Need 10 digits starting 2-9. Spaces, dashes, a leading 0 and +91 are stripped automatically.
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: --- 5. Update contact details ---
+  ID to update:   Current record:
+  ID      : 4
+  Name    : Rohan Verma
+  Phone   : 90000 11111
+  Email   : (none)
+  Group   : Friend
+  Address : Sector 21, Noida
+  Added   : 2026-10-03
+  Enter a new value, or press Enter to keep the current one.
+  For email, group and address, enter '-' to clear the field.
+  Name    [Rohan Verma]:   Phone   [9000011111]:   Email   [(empty)]:   Group   [Friend]:   Address [Sector 21, Noida]:   REJECTED: Duplicate: phone 98123 45678 already belongs to #2 (Ananya Iyer).
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: --- 5. Update contact details ---
+  ID to update:   Current record:
+  ID      : 4
+  Name    : Rohan Verma
+  Phone   : 90000 11111
+  Email   : (none)
+  Group   : Friend
+  Address : Sector 21, Noida
+  Added   : 2026-10-03
+  Enter a new value, or press Enter to keep the current one.
+  For email, group and address, enter '-' to clear the field.
+  Name    [Rohan Verma]:   Phone   [9000011111]:   Email   [(empty)]:   Group   [Friend]:   Address [Sector 21, Noida]:   OK: Updated contact #4 (Rohan V Verma)
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: --- 6. Delete contact ---
+  ID to delete:   About to delete:
+  ID      : 5
+  Name    : Priya Nair
+  Phone   : 94455 66778
+  Email   : priya.nair@example.com
+  Group   : Friend
+  Address : Kochi
+  Added   : 2026-10-03
+  Confirm delete? (y/N):   OK: Deleted contact #5 (Priya Nair). Use Undo (menu 9) to restore.
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: --- 9. Undo last change ---
+  OK: Restored #5 (Priya Nair)
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: --- 8. Autocomplete a name (trie) ---
+  Type a prefix:   1 suggestion(s) for prefix 'Sa':
+    Sanjay Gupta           96325 87410  (#10)
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: ------------------------------------------------------------------------------------------------
+SORTING EXPERIMENT (key = name, case-insensitive)
+------------------------------------------------------------------------------------------------
+  records                     : 10
+  n * log2(n)                 : 33 (lower bound for comparison sorts)
+  std::sort       comparisons : 22
+  std::stable_sort comparisons: 22
+  both copied the source first, so input was already in ID order.
+
+  Result order (ID : Name)
+    sort        : 1 2 3 8 9 7 5 4 10 6
+    stable_sort : 1 2 3 8 9 7 5 4 10 6
+  records sharing a name here: 1 pair(s)
+  Note: both orders matched this time. That is luck, not a guarantee:
+        std::sort may reorder records that share a name. See the stress test.
+
+  Stress test on 64 synthetic records with 8 repeated names:
+    std::sort        reordered 95 pair(s) of records that share a name
+    std::stable_sort reordered 0 pair(s) of records that share a name
+    std::sort + (name, id) key  reordered 0 pair(s) of records that share a name
+    -> equal keys swap position under std::sort, so records can appear to
+       jump around between runs. Two fixes: std::stable_sort, or break the
+       tie in the comparator so the key is a total order. Both give 0.
+  Sorted by name:
+    #1   Aarav Sharma           98765 43210
+    #2   Ananya Iyer            98123 45678
+    #3   Ananya Iyer            99001 12233
+    #8   Arjun Reddy            70123 45678
+    #9   Kavya Menon            99556 67788
+    #7   Meera Krishnan         88997 76655
+    #5   Priya Nair             94455 66778
+    #4   Rohan V Verma          90000 11111
+    #10  Sanjay Gupta           96325 87410
+    #6   Vikram Singh           75540 00123
+------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: ------------------------------------------------------------------------------------------------
+STATISTICS REPORT
+------------------------------------------------------------------------------------------------
+  Contacts stored          : 10
+  Next ID to be issued     : 11
+  vector capacity x sizeof : 10 x 152 = 1520 bytes (payload)
+  idIndex entries          : 20 (id + phone maps)
+  nameIndex buckets        : 9 distinct names
+  Trie nodes               : 105 (one per distinct name prefix)
+  Undo available           : yes
+  CSV file                 : scratch/demo.csv
+
+  By group:
+    Family           3
+    Friend           3
+    General          1
+    Work             3
+  Leading digit of phone (operator series):
+    7 : 2
+    8 : 1
+    9 : 7
+  Missing data: email 3, address 1
+  Longest name: Meera Krishnan (14 chars)
+
+  Contacts sharing a name (phones are still unique):
+    ananya iyer              ids 2 3 
+
+  Near-duplicate names (edit distance <= 2, likely typos):
+    none
+------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice: --- 14. Validate indexes ---
+  records 10, id entries 10, phone entries 10, name slots 10, trie hits 10
+  RESULT: every index agrees with the record array.
+  This is the check that proves the O(1) delete repaired the right entries.
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice:   OK: Saved 10 contact(s) to scratch/demo.csv
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice:   OK: Loaded 10 contact(s) from scratch/demo.csv
+
+------------------------------------------------------------
+  1  Add contact
+  2  Display all contacts (choose sort)
+  3  Search by name
+  4  Search by phone number
+  5  Update contact details
+  6  Delete contact
+  7  Sort alphabetically / comparison experiment
+  8  Autocomplete a name (trie)
+  9  Undo last change
+ 10  Statistics report
+ 11  Save to file
+ 12  Reload from file
+ 13  Load sample data
+ 14  Validate indexes (self-check)
+  0  Exit
+------------------------------------------------------------
+Choice:   OK: Saved 10 contact(s) to scratch/demo.csv
+  Goodbye.

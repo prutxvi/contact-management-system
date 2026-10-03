@@ -1,0 +1,42 @@
+name: build-and-test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compiler version
+        run: c++ --version
+      - name: Build (warnings are fatal here)
+        run: c++ -std=c++17 -O2 -Wall -Wextra -Wpedantic -Werror -o cms src/contact_manager.cpp
+      - name: Behaviour tests
+        run: python3 tests/test_cms.py
+      - name: Index self-check on sample data
+        run: |
+          ./cms --data /tmp/ci.csv --seed > /dev/null
+          ./cms --data /tmp/ci.csv --audit
+      - name: Audit must detect a deliberately corrupted index
+        run: |
+          if ./cms --data /tmp/ci.csv --inject-fault 3 --audit; then
+            echo "audit passed on corrupted data - the check is broken"; exit 1
+          else
+            echo "audit correctly failed on corrupted data"
+          fi
+      - name: Benchmark binary builds and runs
+        run: |
+          c++ -std=c++17 -O2 -Wall -Wextra -Werror -o bench_bin bench/bench.cpp
+          ./bench_bin 1000 10000
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: c++ -std=c++17 -O2 -Wall -Wextra -Wpedantic -Werror -o cms src/contact_manager.cpp
+      - name: Behaviour tests
+        run: python3 tests/test_cms.py
