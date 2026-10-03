@@ -381,7 +381,8 @@ public:
 
         std::string msg = "Added contact #" + std::to_string(stored.id) + " (" + stored.name + ")";
         if (sameNameExists)
-            msg += "\n  note: another contact already has this name; names are not unique, phone numbers are.";
+            msg += "\n    note: another contact already has this name."
+                   "\n    names are not unique; phone numbers are.";
         return {true, msg};
     }
 
@@ -791,9 +792,9 @@ private:
             return {false, "Invalid phone '" + util::trim(c.phone) + "': no digits found."};
         }
         if (!util::isValidPhone(ph))
-            return {false, "Invalid phone '" + c.phone +
-                               "'. Need 10 digits starting 2-9. Spaces, dashes, a leading 0 and "
-                               "+91 are stripped automatically."};
+            return {false, "Invalid phone '" + c.phone + "'."
+                               "\n    need exactly 10 digits starting 2-9; spaces, dashes, +91 and a "
+                               "leading 0 are stripped for you."};
         auto pit = byPhone_.find(ph);
         if (pit != byPhone_.end()) {
             std::size_t at = pit->second;
@@ -917,7 +918,7 @@ private:
     bool eof_ = false;
 };
 
-void printRule(std::size_t n = 96) { std::cout << std::string(n, '-') << "\n"; }
+void printRule(std::size_t n = 88) { std::cout << std::string(n, '-') << "\n"; }
 
 void printContacts(const std::vector<const Contact*>& v, bool withAddress = true) {
     if (v.empty()) {
@@ -928,7 +929,7 @@ void printContacts(const std::vector<const Contact*>& v, bool withAddress = true
               << " " << util::fit("Group", 10) << " " << util::fit("Email", 24) << " ";
     if (withAddress) std::cout << util::fit("Address", 26) << " ";
     std::cout << util::fit("Added", 10) << "\n";
-    printRule(withAddress ? 116 : 90);
+    printRule(withAddress ? 115 : 90);
     for (const Contact* c : v) {
         std::cout << util::fit(std::to_string(c->id), 4) << " " << util::fit(c->name, 22) << " "
                   << util::fit(util::fmtPhone(c->phone), 12) << " " << util::fit(c->group, 10) << " "
@@ -1162,7 +1163,7 @@ void loadSamples(ContactStore& store) {
         ContactStore::Result r = store.add(c);
         if (r.ok) ++added; else ++refused;
     }
-    std::cout << "  Sample data: " << added << " contact(s) added";
+    std::cout << "\n  Sample data: " << added << " contact(s) added";
     if (refused) std::cout << ", " << refused << " refused as duplicates";
     std::cout << ".\n  Note the deliberate pair of contacts both named 'Ananya Iyer'.\n";
 }
@@ -1185,7 +1186,7 @@ void menuAdd(Console& con, ContactStore& store) {
     if (con.eof()) return;
     int id = 0;
     ContactStore::Result r = store.add(c, &id);
-    std::cout << (r.ok ? "  OK: " : "  REJECTED: ") << r.msg << "\n";
+    std::cout << "\n" << (r.ok ? "  OK: " : "  REJECTED: ") << r.msg << "\n";
 }
 
 void menuDisplay(Console& con, ContactStore& store) {
@@ -1215,7 +1216,7 @@ void menuDisplay(Console& con, ContactStore& store) {
     }
     SortStats st;
     std::vector<const Contact*> v = store.sorted(key, asc, &st);
-    std::cout << "  " << v.size() << " record(s), sorted by " << keyName << " "
+    std::cout << "\n  " << v.size() << " record(s), sorted by " << keyName << " "
               << (asc ? "ascending" : "descending") << "; " << st.comparisons
               << " comparisons performed.\n";
     printContacts(v);
@@ -1240,7 +1241,7 @@ void menuSearchName(Console& con, ContactStore& store) {
         default: break;
     }
     std::vector<const Contact*> v = store.searchByName(q, mode);
-    std::cout << "  " << v.size() << " match(es) for " << label << " search '" << util::trim(q) << "':\n";
+    std::cout << "\n  " << v.size() << " match(es) for " << label << " search '" << util::trim(q) << "':\n";
     printContacts(v, false);
     if (mode == ContactStore::NameMode::Fuzzy)
         std::cout << "  Fuzzy mode scores every record with Damerau-Levenshtein, so it is O(n * L^2).\n";
@@ -1254,7 +1255,7 @@ void menuSearchPhone(Console& con, ContactStore& store) {
     if (util::trim(q).empty()) { std::cout << "  ! Empty search text; nothing done.\n"; return; }
     std::vector<const Contact*> v = store.searchByPhone(q);
     bool exact = (v.size() == 1 && v[0]->phone == util::normalizePhone(q));
-    std::cout << "  " << v.size() << " match(es). " << (exact ? "Exact hash hit, O(1)." : "Partial match required a linear scan, O(n).") << "\n";
+    std::cout << "\n  " << v.size() << " match(es). " << (exact ? "Exact hash hit, O(1)." : "Partial match required a linear scan, O(n).") << "\n";
     printContacts(v, false);
 }
 
@@ -1285,7 +1286,7 @@ void menuUpdate(Console& con, ContactStore& store) {
     if (!ask("Group  ", nv.group, true)) return;
     if (!ask("Address", nv.address, true)) return;
     ContactStore::Result r = store.update(static_cast<int>(id), nv);
-    std::cout << (r.ok ? "  OK: " : "  REJECTED: ") << r.msg << "\n";
+    std::cout << "\n" << (r.ok ? "  OK: " : "  REJECTED: ") << r.msg << "\n";
 }
 
 void menuDelete(Console& con, ContactStore& store) {
@@ -1299,7 +1300,7 @@ void menuDelete(Console& con, ContactStore& store) {
     printOne(*cur);
     if (!con.yesNo("  Confirm delete? (y/N): ")) { std::cout << "  Cancelled; nothing removed.\n"; return; }
     ContactStore::Result r = store.remove(static_cast<int>(id));
-    std::cout << (r.ok ? "  OK: " : "  REJECTED: ") << r.msg << "\n";
+    std::cout << "\n" << (r.ok ? "  OK: " : "  REJECTED: ") << r.msg << "\n";
 }
 
 void menuAutocomplete(Console& con, const ContactStore& store) {
@@ -1308,7 +1309,7 @@ void menuAutocomplete(Console& con, const ContactStore& store) {
     std::string p = con.line("  Type a prefix: ");
     if (con.eof()) return;
     std::vector<const Contact*> v = store.autocomplete(p);
-    std::cout << "  " << v.size() << " suggestion(s) for prefix '" << util::trim(p) << "':\n";
+    std::cout << "\n  " << v.size() << " suggestion(s) for prefix '" << util::trim(p) << "':\n";
     std::size_t shown = 0;
     for (const Contact* c : v) {
         if (shown++ == 10) { std::cout << "  ... " << (v.size() - 10) << " more\n"; break; }
@@ -1341,7 +1342,7 @@ void menuUndo(Console& con, ContactStore& store) {
     std::cout << "--- 9. Undo last change ---\n";
     std::string what;
     bool ok = store.undo(what);
-    std::cout << "  " << (ok ? "OK: " : "  ") << what << "\n";
+    std::cout << "\n  " << (ok ? "OK: " : "  ") << what << "\n";
 }
 
 #ifndef CMS_NO_MAIN
@@ -1435,9 +1436,9 @@ int main(int argc, char** argv) {
             case 9: menuUndo(con, store); break;
             case 10: reportStats(con, store, dataPath); break;
             case 11: { ContactStore::Result r = store.save(dataPath);
-                       std::cout << "  " << (r.ok ? "OK: " : "ERROR: ") << r.msg << "\n"; } break;
+                       std::cout << "\n  " << (r.ok ? "OK: " : "ERROR: ") << r.msg << "\n"; } break;
             case 12: { bool ex = false; ContactStore::Result r = store.load(dataPath, &ex);
-                       std::cout << "  " << (r.ok ? "OK: " : "ERROR: ") << r.msg << "\n"; } break;
+                       std::cout << "\n  " << (r.ok ? "OK: " : "ERROR: ") << r.msg << "\n"; } break;
             case 13: loadSamples(store); break;
             case 14: menuAudit(con, store); break;
             case 0:

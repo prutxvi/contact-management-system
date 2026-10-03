@@ -10,9 +10,9 @@ One exact lookup of a phone number, averaged over many queries.
 
 | n | unordered_map O(1) | sorted vector + binary_search O(log n) | linear scan O(n) | scan / map |
 |---|---:|---:|---:|---:|
-| 1,000 | 40 ns/query | 62 ns/query | 715 ns/query | 18.0x |
-| 10,000 | 37 ns/query | 86 ns/query | 7305 ns/query | 197.2x |
-| 100,000 | 94 ns/query | 139 ns/query | 69974 ns/query | 748.0x |
+| 1,000 | 29 ns/query | 62 ns/query | 709 ns/query | 24.5x |
+| 10,000 | 34 ns/query | 89 ns/query | 7616 ns/query | 222.9x |
+| 100,000 | 58 ns/query | 142 ns/query | 70608 ns/query | 1216.2x |
 
 ## Name prefix search (autocomplete)
 
@@ -21,9 +21,9 @@ matching records, so the work is comparable.
 
 | n | trie O(prefix + matches) | ordered map lower_bound O(log n + matches) | linear scan O(n) | scan / trie | trie / map |
 |---|---:|---:|---:|---:|---:|
-| 1,000 | 11.68 ms | 8.47 ms | 60.23 ms | 5.2x | 1.38x |
-| 10,000 | 8.65 ms | 4.70 ms | 61.19 ms | 7.1x | 1.84x |
-| 100,000 | 12.65 ms | 6.11 ms | 62.58 ms | 4.9x | 2.07x |
+| 1,000 | 11.85 ms | 9.27 ms | 64.50 ms | 5.4x | 1.28x |
+| 10,000 | 9.57 ms | 5.24 ms | 73.35 ms | 7.7x | 1.83x |
+| 100,000 | 11.79 ms | 6.40 ms | 65.37 ms | 5.5x | 1.84x |
 
 ## Deleting records by ID
 
@@ -31,17 +31,17 @@ Delete a random 10% of all records and time the whole batch.
 
 | n | dense vector + O(1) index repair | vector::erase O(n) memmove | erase / swap |
 |---|---:|---:|---:|
-| 1,000 | 0.23 ms | 0.19 ms | 0.8x |
-| 10,000 | 3.72 ms | 23.41 ms | 6.3x |
-| 100,000 | 50.72 ms | 2330.77 ms | 46.0x |
+| 1,000 | 0.25 ms | 0.19 ms | 0.8x |
+| 10,000 | 3.71 ms | 23.55 ms | 6.3x |
+| 100,000 | 54.88 ms | 2351.14 ms | 42.8x |
 
 ## Sorting by name, case-insensitive
 
 | n | n*log2(n) lower bound | std::sort comparisons | std::stable_sort comparisons | std::sort | stable_sort |
 |---|---:|---:|---:|---:|---:|
-| 1,000 | 9966 | 11403 | 20414 | 0.46 ms | 0.77 ms |
-| 10,000 | 132877 | 147532 | 185207 | 6.25 ms | 7.34 ms |
-| 100,000 | 1660964 | 1842179 | 3530302 | 75.38 ms | 130.74 ms |
+| 1,000 | 9966 | 11403 | 20414 | 0.47 ms | 0.77 ms |
+| 10,000 | 132877 | 147532 | 185207 | 5.37 ms | 6.39 ms |
+| 100,000 | 1660964 | 1842179 | 3530302 | 71.55 ms | 129.02 ms |
 
 ## Typo-tolerant (fuzzy) search cost
 
@@ -49,9 +49,9 @@ One query scored against every stored name with Damerau-Levenshtein. This is the
 
 | n | time for one query |
 |---|---:|
-| 1,000 | 0.32 ms (42 hit(s)) |
-| 10,000 | 3.13 ms (417 hit(s)) |
-| 100,000 | 30.58 ms (4167 hit(s)) |
+| 1,000 | 0.35 ms (42 hit(s)) |
+| 10,000 | 2.92 ms (417 hit(s)) |
+| 100,000 | 29.99 ms (4167 hit(s)) |
 
 ## Memory footprint
 
