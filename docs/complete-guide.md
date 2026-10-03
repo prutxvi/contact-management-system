@@ -368,10 +368,23 @@ Every tool, version and library involved, and why each one is there.
 | Lines of C++ | 1,464 (application) + 366 (benchmark) |
 
 **Why C++17 and not C++20 or C++23.** C++17 is the newest standard that is safe to assume on any
-college machine or lab image. The project uses C++17 features deliberately (`std::optional`,
-structured bindings, `std::string_view`-free by choice, `if constexpr`-free by choice) but nothing
-that requires a newer compiler. C++20's `std::erase_if` and C++23's `std::flat_map` would be
-nicer in places, but a submission that does not compile on the examiner's laptop is worth nothing.
+college machine or lab image. A submission that does not compile on the examiner's laptop is worth
+nothing, so the project stays inside the standard that every current compiler supports by default.
+
+C++17 features actually used, and where:
+
+| Feature | Where | Why |
+|---|---|---|
+| `std::optional` | 5 uses, mapping CSV headers to column positions | a column may legitimately be absent; `optional` says so in the type instead of using a sentinel like `-1` |
+| `std::make_unique` | 2 uses, trie node ownership | no raw `new`, no manual `delete` |
+| `std::move` | 6 uses, pushing records into the vector | avoids copying strings on every insert |
+| Lambdas | 13 uses, comparators and small helpers | keeps a comparator next to the sort that uses it |
+| `std::stable_sort` | 10 uses | the stability guarantee discussed in Part 5.3 |
+
+C++17 features deliberately **not** used: structured bindings, `std::string_view`, `if constexpr`.
+They are all fine, but none of them makes this code clearer, and each is one more thing to explain
+in a viva for no gain. C++20's `std::erase_if` and C++23's `std::flat_map` would be nicer in two
+places; neither is worth the portability risk.
 
 ## 3.2 Compiler and build flags
 
